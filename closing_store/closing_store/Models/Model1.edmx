@@ -1,0 +1,910 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Closing_storeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="gender" Type="varchar" MaxLength="10" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="customer_address">
+          <Key>
+            <PropertyRef Name="address" />
+          </Key>
+          <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_id" Type="int" />
+        </EntityType>
+        <EntityType Name="customer_buy_product">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" />
+        </EntityType>
+        <EntityType Name="customer_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="complain" Type="varchar(max)" />
+          <Property Name="staff_id" Type="int" />
+        </EntityType>
+        <EntityType Name="delivers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
+        <EntityType Name="delivers_location">
+          <Key>
+            <PropertyRef Name="location" />
+          </Key>
+          <Property Name="location" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="delivery_id" Type="int" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="price" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="nvarchar(max)" />
+          <Property Name="size" Type="varchar" MaxLength="20" />
+          <Property Name="color" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="supplier_id" Type="int" />
+          <Property Name="catgory_id" Type="int" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="rate" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="customer_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sales_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" />
+          <Property Name="total_price" Type="int" />
+        </EntityType>
+        <EntityType Name="staff">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="transactions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" />
+          <Property Name="total_price" Type="int" />
+          <Property Name="delivery_id" Type="int" />
+          <Property Name="sales_history_id" Type="int" />
+          <Property Name="customer_id" Type="int" />
+        </EntityType>
+        <EntityType Name="transactions_items">
+          <Key>
+            <PropertyRef Name="items" />
+          </Key>
+          <Property Name="items" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="transaction_id" Type="int" />
+        </EntityType>
+        <EntityType Name="visa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="credit_num" Type="varchar" MaxLength="30" />
+          <Property Name="Exp_date_month" Type="varchar" MaxLength="2" />
+          <Property Name="Exp_date_year" Type="varchar" MaxLength="2" />
+          <Property Name="cvv" Type="varchar" MaxLength="3" />
+          <Property Name="customer_id" Type="int" />
+        </EntityType>
+        <Association Name="FK__customer___custo__403A8C7D">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="customer_address" Type="Self.customer_address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer_address">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer___produ__4AB81AF0">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="customer_buy_product" Type="Self.customer_buy_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer_buy_product">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer___staff__38996AB5">
+          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+          <End Role="customer_service" Type="Self.customer_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer_service">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__delivers___deliv__5165187F">
+          <End Role="delivers" Type="Self.delivers" Multiplicity="0..1" />
+          <End Role="delivers_location" Type="Self.delivers_location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="delivers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="delivers_location">
+              <PropertyRef Name="delivery_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__catgory__5CD6CB2B">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="catgory_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__supplie__47DBAE45">
+          <End Role="supplier" Type="Self.supplier" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__customer__4316F928">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__custo__5629CD9C">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__deliv__5441852A">
+          <End Role="delivers" Type="Self.delivers" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="delivers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="delivery_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__sales__5535A963">
+          <End Role="sales_history" Type="Self.sales_history" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales_history">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="sales_history_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__trans__59063A47">
+          <End Role="transactions" Type="Self.transactions" Multiplicity="0..1" />
+          <End Role="transactions_items" Type="Self.transactions_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transactions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions_items">
+              <PropertyRef Name="transaction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__visa__customer_i__3D5E1FD2">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="visa" Type="Self.visa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="visa">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Closing_storeModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer_address" EntityType="Self.customer_address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer_buy_product" EntityType="Self.customer_buy_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer_service" EntityType="Self.customer_service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="delivers" EntityType="Self.delivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="delivers_location" EntityType="Self.delivers_location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sales_history" EntityType="Self.sales_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transactions_items" EntityType="Self.transactions_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="visa" EntityType="Self.visa" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__customer___custo__403A8C7D" Association="Self.FK__customer___custo__403A8C7D">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="customer_address" EntitySet="customer_address" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer___produ__4AB81AF0" Association="Self.FK__customer___produ__4AB81AF0">
+            <End Role="product" EntitySet="product" />
+            <End Role="customer_buy_product" EntitySet="customer_buy_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer___staff__38996AB5" Association="Self.FK__customer___staff__38996AB5">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="customer_service" EntitySet="customer_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__delivers___deliv__5165187F" Association="Self.FK__delivers___deliv__5165187F">
+            <End Role="delivers" EntitySet="delivers" />
+            <End Role="delivers_location" EntitySet="delivers_location" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__catgory__5CD6CB2B" Association="Self.FK__product__catgory__5CD6CB2B">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__supplie__47DBAE45" Association="Self.FK__product__supplie__47DBAE45">
+            <End Role="supplier" EntitySet="supplier" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__customer__4316F928" Association="Self.FK__review__customer__4316F928">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__custo__5629CD9C" Association="Self.FK__transacti__custo__5629CD9C">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__deliv__5441852A" Association="Self.FK__transacti__deliv__5441852A">
+            <End Role="delivers" EntitySet="delivers" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__sales__5535A963" Association="Self.FK__transacti__sales__5535A963">
+            <End Role="sales_history" EntitySet="sales_history" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__trans__59063A47" Association="Self.FK__transacti__trans__59063A47">
+            <End Role="transactions" EntitySet="transactions" />
+            <End Role="transactions_items" EntitySet="transactions_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__visa__customer_i__3D5E1FD2" Association="Self.FK__visa__customer_i__3D5E1FD2">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="visa" EntitySet="visa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Closing_storeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK__product__catgory__5CD6CB2B" FromRole="Category" ToRole="product" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="customer_address" Relationship="Self.FK__customer___custo__403A8C7D" FromRole="customer" ToRole="customer_address" />
+          <NavigationProperty Name="reviews" Relationship="Self.FK__review__customer__4316F928" FromRole="customer" ToRole="review" />
+          <NavigationProperty Name="transactions" Relationship="Self.FK__transacti__custo__5629CD9C" FromRole="customer" ToRole="transactions" />
+          <NavigationProperty Name="visas" Relationship="Self.FK__visa__customer_i__3D5E1FD2" FromRole="customer" ToRole="visa" />
+        </EntityType>
+        <EntityType Name="customer_address">
+          <Key>
+            <PropertyRef Name="address" />
+          </Key>
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_id" Type="Int32" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__customer___custo__403A8C7D" FromRole="customer_address" ToRole="customer" />
+        </EntityType>
+        <EntityType Name="customer_buy_product">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" />
+          <NavigationProperty Name="product" Relationship="Self.FK__customer___produ__4AB81AF0" FromRole="customer_buy_product" ToRole="product" />
+        </EntityType>
+        <EntityType Name="customer_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="complain" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="staff_id" Type="Int32" />
+          <NavigationProperty Name="staff" Relationship="Self.FK__customer___staff__38996AB5" FromRole="customer_service" ToRole="staff" />
+        </EntityType>
+        <EntityType Name="deliver">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="Boolean" />
+          <NavigationProperty Name="delivers_location" Relationship="Self.FK__delivers___deliv__5165187F" FromRole="delivers" ToRole="delivers_location" />
+          <NavigationProperty Name="transactions" Relationship="Self.FK__transacti__deliv__5441852A" FromRole="delivers" ToRole="transactions" />
+        </EntityType>
+        <EntityType Name="delivers_location">
+          <Key>
+            <PropertyRef Name="location" />
+          </Key>
+          <Property Name="location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="delivery_id" Type="Int32" />
+          <NavigationProperty Name="deliver" Relationship="Self.FK__delivers___deliv__5165187F" FromRole="delivers_location" ToRole="delivers" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="size" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="supplier_id" Type="Int32" />
+          <Property Name="catgory_id" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__product__catgory__5CD6CB2B" FromRole="product" ToRole="Category" />
+          <NavigationProperty Name="customer_buy_product" Relationship="Self.FK__customer___produ__4AB81AF0" FromRole="product" ToRole="customer_buy_product" />
+          <NavigationProperty Name="supplier" Relationship="Self.FK__product__supplie__47DBAE45" FromRole="product" ToRole="supplier" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="rate" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="customer_id" Type="Int32" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__review__customer__4316F928" FromRole="review" ToRole="customer" />
+        </EntityType>
+        <EntityType Name="sales_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="total_price" Type="Int32" />
+          <NavigationProperty Name="transactions" Relationship="Self.FK__transacti__sales__5535A963" FromRole="sales_history" ToRole="transactions" />
+        </EntityType>
+        <EntityType Name="staff">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="customer_service" Relationship="Self.FK__customer___staff__38996AB5" FromRole="staff" ToRole="customer_service" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK__product__supplie__47DBAE45" FromRole="supplier" ToRole="product" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="total_price" Type="Int32" />
+          <Property Name="delivery_id" Type="Int32" />
+          <Property Name="sales_history_id" Type="Int32" />
+          <Property Name="customer_id" Type="Int32" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__transacti__custo__5629CD9C" FromRole="transactions" ToRole="customer" />
+          <NavigationProperty Name="deliver" Relationship="Self.FK__transacti__deliv__5441852A" FromRole="transactions" ToRole="delivers" />
+          <NavigationProperty Name="sales_history" Relationship="Self.FK__transacti__sales__5535A963" FromRole="transactions" ToRole="sales_history" />
+          <NavigationProperty Name="transactions_items" Relationship="Self.FK__transacti__trans__59063A47" FromRole="transactions" ToRole="transactions_items" />
+        </EntityType>
+        <EntityType Name="transactions_items">
+          <Key>
+            <PropertyRef Name="items" />
+          </Key>
+          <Property Name="items" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="transaction_id" Type="Int32" />
+          <NavigationProperty Name="transaction" Relationship="Self.FK__transacti__trans__59063A47" FromRole="transactions_items" ToRole="transactions" />
+        </EntityType>
+        <EntityType Name="visa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="credit_num" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Exp_date_month" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Exp_date_year" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cvv" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="customer_id" Type="Int32" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__visa__customer_i__3D5E1FD2" FromRole="visa" ToRole="customer" />
+        </EntityType>
+        <Association Name="FK__product__catgory__5CD6CB2B">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="catgory_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer___custo__403A8C7D">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="customer_address" Type="Self.customer_address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer_address">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__customer__4316F928">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__custo__5629CD9C">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__visa__customer_i__3D5E1FD2">
+          <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="visa" Type="Self.visa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="visa">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer___produ__4AB81AF0">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="customer_buy_product" Type="Self.customer_buy_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer_buy_product">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer___staff__38996AB5">
+          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+          <End Role="customer_service" Type="Self.customer_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer_service">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__delivers___deliv__5165187F">
+          <End Role="delivers" Type="Self.deliver" Multiplicity="0..1" />
+          <End Role="delivers_location" Type="Self.delivers_location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="delivers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="delivers_location">
+              <PropertyRef Name="delivery_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__deliv__5441852A">
+          <End Role="delivers" Type="Self.deliver" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="delivers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="delivery_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__supplie__47DBAE45">
+          <End Role="supplier" Type="Self.supplier" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__sales__5535A963">
+          <End Role="sales_history" Type="Self.sales_history" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales_history">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="sales_history_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__trans__59063A47">
+          <End Role="transactions" Type="Self.transaction" Multiplicity="0..1" />
+          <End Role="transactions_items" Type="Self.transactions_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transactions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transactions_items">
+              <PropertyRef Name="transaction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Closing_storeEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="customer_address" EntityType="Self.customer_address" />
+          <EntitySet Name="customer_buy_product" EntityType="Self.customer_buy_product" />
+          <EntitySet Name="customer_service" EntityType="Self.customer_service" />
+          <EntitySet Name="delivers" EntityType="Self.deliver" />
+          <EntitySet Name="delivers_location" EntityType="Self.delivers_location" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="reviews" EntityType="Self.review" />
+          <EntitySet Name="sales_history" EntityType="Self.sales_history" />
+          <EntitySet Name="staffs" EntityType="Self.staff" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="transactions" EntityType="Self.transaction" />
+          <EntitySet Name="transactions_items" EntityType="Self.transactions_items" />
+          <EntitySet Name="visas" EntityType="Self.visa" />
+          <AssociationSet Name="FK__product__catgory__5CD6CB2B" Association="Self.FK__product__catgory__5CD6CB2B">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer___custo__403A8C7D" Association="Self.FK__customer___custo__403A8C7D">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="customer_address" EntitySet="customer_address" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__customer__4316F928" Association="Self.FK__review__customer__4316F928">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="review" EntitySet="reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__custo__5629CD9C" Association="Self.FK__transacti__custo__5629CD9C">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__visa__customer_i__3D5E1FD2" Association="Self.FK__visa__customer_i__3D5E1FD2">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="visa" EntitySet="visas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer___produ__4AB81AF0" Association="Self.FK__customer___produ__4AB81AF0">
+            <End Role="product" EntitySet="products" />
+            <End Role="customer_buy_product" EntitySet="customer_buy_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer___staff__38996AB5" Association="Self.FK__customer___staff__38996AB5">
+            <End Role="staff" EntitySet="staffs" />
+            <End Role="customer_service" EntitySet="customer_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__delivers___deliv__5165187F" Association="Self.FK__delivers___deliv__5165187F">
+            <End Role="delivers" EntitySet="delivers" />
+            <End Role="delivers_location" EntitySet="delivers_location" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__deliv__5441852A" Association="Self.FK__transacti__deliv__5441852A">
+            <End Role="delivers" EntitySet="delivers" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__supplie__47DBAE45" Association="Self.FK__product__supplie__47DBAE45">
+            <End Role="supplier" EntitySet="suppliers" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__sales__5535A963" Association="Self.FK__transacti__sales__5535A963">
+            <End Role="sales_history" EntitySet="sales_history" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__trans__59063A47" Association="Self.FK__transacti__trans__59063A47">
+            <End Role="transactions" EntitySet="transactions" />
+            <End Role="transactions_items" EntitySet="transactions_items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Closing_storeModelStoreContainer" CdmEntityContainer="Closing_storeEntities1">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="Closing_storeModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="Closing_storeModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customer_address">
+            <EntityTypeMapping TypeName="Closing_storeModel.customer_address">
+              <MappingFragment StoreEntitySet="customer_address">
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customer_buy_product">
+            <EntityTypeMapping TypeName="Closing_storeModel.customer_buy_product">
+              <MappingFragment StoreEntitySet="customer_buy_product">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customer_service">
+            <EntityTypeMapping TypeName="Closing_storeModel.customer_service">
+              <MappingFragment StoreEntitySet="customer_service">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="complain" ColumnName="complain" />
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="delivers">
+            <EntityTypeMapping TypeName="Closing_storeModel.deliver">
+              <MappingFragment StoreEntitySet="delivers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="delivers_location">
+            <EntityTypeMapping TypeName="Closing_storeModel.delivers_location">
+              <MappingFragment StoreEntitySet="delivers_location">
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="delivery_id" ColumnName="delivery_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="Closing_storeModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+                <ScalarProperty Name="catgory_id" ColumnName="catgory_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reviews">
+            <EntityTypeMapping TypeName="Closing_storeModel.review">
+              <MappingFragment StoreEntitySet="review">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales_history">
+            <EntityTypeMapping TypeName="Closing_storeModel.sales_history">
+              <MappingFragment StoreEntitySet="sales_history">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="staffs">
+            <EntityTypeMapping TypeName="Closing_storeModel.staff">
+              <MappingFragment StoreEntitySet="staff">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="Closing_storeModel.supplier">
+              <MappingFragment StoreEntitySet="supplier">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="Closing_storeModel.transaction">
+              <MappingFragment StoreEntitySet="transactions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="delivery_id" ColumnName="delivery_id" />
+                <ScalarProperty Name="sales_history_id" ColumnName="sales_history_id" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions_items">
+            <EntityTypeMapping TypeName="Closing_storeModel.transactions_items">
+              <MappingFragment StoreEntitySet="transactions_items">
+                <ScalarProperty Name="items" ColumnName="items" />
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="visas">
+            <EntityTypeMapping TypeName="Closing_storeModel.visa">
+              <MappingFragment StoreEntitySet="visa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="credit_num" ColumnName="credit_num" />
+                <ScalarProperty Name="Exp_date_month" ColumnName="Exp_date_month" />
+                <ScalarProperty Name="Exp_date_year" ColumnName="Exp_date_year" />
+                <ScalarProperty Name="cvv" ColumnName="cvv" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
