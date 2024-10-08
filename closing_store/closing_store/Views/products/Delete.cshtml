@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Delete";
 }
+@{ 
+    Layout= "~/Views/Shared/Layout2.cshtml";
+}
 
 <h2>Delete</h2>
 
@@ -68,24 +71,17 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Category.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.name)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.supplier.name)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.supplier.name)
-        </dd>
+        @*<dd>
+                @Html.DisplayFor(model => model.supplier.name)
+            </dd>*@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

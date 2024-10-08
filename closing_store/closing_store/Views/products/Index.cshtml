@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<closing_store.Models.product>
 
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout2.cshtml";
 }
 
-<h2>Index</h2>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Index</title>
+</head>
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -32,50 +39,55 @@
         <th>
             @Html.DisplayNameFor(model => model.description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.supplier.name)
-        </th>
+        @* <th>
+                @Html.DisplayNameFor(model => model.supplier.name)
+            </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.supplier.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.image)
+
+                @if (!string.IsNullOrWhiteSpace(item.image))
+                {
+                    <img width="50" height="50"
+                         src="~/Content/images/@Url.Content(item.image)"
+                         alt="Alternate Text" />
+                }
+
+
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            @** <td>
+                    @Html.DisplayFor(modelItem => item.supplier.name)
+                </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

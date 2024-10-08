@@ -49,16 +49,24 @@ namespace closing_store.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,price,quantity,image,size,color,description,supplier_id,catgory_id")] product product)
+
+
+         public ActionResult Create([Bind(Include = "id,name,price,quantity,size,color,description,supplier_id,image")] product product, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    file.SaveAs(HttpContext.Server.MapPath("~/Content/images/") + file.FileName);
+                    product.image = file.FileName;
+                }
+                
+
                 db.products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.catgory_id = new SelectList(db.Categories, "id", "name", product.catgory_id);
             ViewBag.supplier_id = new SelectList(db.suppliers, "id", "name", product.supplier_id);
             return View(product);
         }

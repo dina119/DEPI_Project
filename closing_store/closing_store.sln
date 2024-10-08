@@ -5,8 +5,6 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "closing_store", "closing_store\closing_store.csproj", "{545575C5-D093-446B-B542-52F1CBB0339E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "final_proo", "C:\Users\el-noor\Desktop\New folder\final_proo\final_proo\final_proo.csproj", "{DF16A847-4FAC-4D16-9D9A-F266FA53BA59}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{545575C5-D093-446B-B542-52F1CBB0339E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{545575C5-D093-446B-B542-52F1CBB0339E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{545575C5-D093-446B-B542-52F1CBB0339E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF16A847-4FAC-4D16-9D9A-F266FA53BA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF16A847-4FAC-4D16-9D9A-F266FA53BA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF16A847-4FAC-4D16-9D9A-F266FA53BA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF16A847-4FAC-4D16-9D9A-F266FA53BA59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
