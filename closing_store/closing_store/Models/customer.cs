@@ -40,6 +40,8 @@ namespace closing_store.Models
         public string phone { get; set; }
         [Required(ErrorMessage ="this field is required")]
         public string UserName { get; set; }
+
+        [Display(Name ="Admin code")]
         public Nullable<int> role_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

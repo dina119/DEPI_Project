@@ -66,6 +66,7 @@ namespace closing_store.Controllers
         
         }
         [HttpGet]
+
         public ActionResult Login()
         {
             return View();
@@ -74,30 +75,34 @@ namespace closing_store.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
          public ActionResult Login(customer customerr) {
-
-            var chechLogin=db.customers.Where(x=>x.UserName.Equals(customerr.UserName)&&x.password.Equals(customerr.password));
-            //var chechAdmin=db.customers.Where(x=>x.role_id.Equals(customerr.role_id==1));
-            //if(chechAdmin.Equals(1))
-            //{
-                 
-            //     Session["Ids"]=customerr.id.ToString();
-            //    Session["UserNames"]=customerr.UserName.ToString();
-            //    return RedirectToAction("Index","Home2");
-            //}
+             
+            var chechLogin=db.customers.Where(x=>x.UserName.Equals(customerr.UserName)&&x.password.Equals(customerr.password)).FirstOrDefault();
+           
             
-           if (chechLogin != null)
+          if (chechLogin != null)
             {
                  Session["Ids"]=customerr.id.ToString();
                 Session["UserNames"]=customerr.UserName.ToString();
-                return RedirectToAction("Index","Home");
+                 Session["Passwords"]=customerr.password.ToString();
+                if (Session["UserNames"].Equals("ali"))
+                {
+                    return RedirectToAction("Index", "Home2");
+                }
+
+
+               
+                  return RedirectToAction("Index","Home");
+
+
             }
 
            
             else
             {
                 ViewBag.Notification="Wrong username or password";
+                
             }
-            return View();
+           return View();
         }
 
         public ActionResult LogOut()
