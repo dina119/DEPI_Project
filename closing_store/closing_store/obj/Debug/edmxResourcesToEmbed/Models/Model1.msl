@@ -12,6 +12,8 @@
     <EntitySetMapping Name="customers">
       <EntityTypeMapping TypeName="Closing_storeModel.customer">
         <MappingFragment StoreEntitySet="customer">
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="gender" ColumnName="gender" />
@@ -150,6 +152,14 @@
           <ScalarProperty Name="Exp_date_year" ColumnName="Exp_date_year" />
           <ScalarProperty Name="cvv" ColumnName="cvv" />
           <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="Closing_storeModel.role">
+        <MappingFragment StoreEntitySet="roles">
+          <ScalarProperty Name="role_name" ColumnName="role_name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

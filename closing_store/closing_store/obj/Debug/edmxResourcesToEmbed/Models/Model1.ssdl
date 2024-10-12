@@ -17,6 +17,8 @@
     <Property Name="password" Type="varchar" MaxLength="50" />
     <Property Name="email" Type="varchar" MaxLength="50" />
     <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="role_id" Type="int" />
   </EntityType>
   <EntityType Name="customer_address">
     <Key>
@@ -80,6 +82,13 @@
     <Property Name="rate" Type="decimal" Precision="18" Scale="0" />
     <Property Name="description" Type="varchar(max)" />
     <Property Name="customer_id" Type="int" />
+  </EntityType>
+  <EntityType Name="roles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="role_name" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="sales_history">
     <Key>
@@ -170,6 +179,18 @@
       </Principal>
       <Dependent Role="customer_service">
         <PropertyRef Name="staff_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__customer__role_i__05D8E0BE">
+    <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+    <End Role="customer" Type="Self.customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="customer">
+        <PropertyRef Name="role_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -291,6 +312,7 @@
     <EntitySet Name="delivers_location" EntityType="Self.delivers_location" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sales_history" EntityType="Self.sales_history" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
@@ -308,6 +330,10 @@
     <AssociationSet Name="FK__customer___staff__38996AB5" Association="Self.FK__customer___staff__38996AB5">
       <End Role="staff" EntitySet="staff" />
       <End Role="customer_service" EntitySet="customer_service" />
+    </AssociationSet>
+    <AssociationSet Name="FK__customer__role_i__05D8E0BE" Association="Self.FK__customer__role_i__05D8E0BE">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="customer" EntitySet="customer" />
     </AssociationSet>
     <AssociationSet Name="FK__delivers___deliv__5165187F" Association="Self.FK__delivers___deliv__5165187F">
       <End Role="delivers" EntitySet="delivers" />

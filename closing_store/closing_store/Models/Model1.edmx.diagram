@@ -32,6 +32,8 @@
         <AssociationConnector Association="Closing_storeModel.FK__product__supplie__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__transacti__sales__5535A963" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__transacti__trans__59063A47" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Closing_storeModel.role" Width="1.5" PointX="0.75" PointY="2.75" />
+        <AssociationConnector Association="Closing_storeModel.FK__customer__role_i__05D8E0BE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

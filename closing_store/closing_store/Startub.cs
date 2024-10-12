@@ -1,14 +1,15 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(closing_store.Startup))]
+[assembly: OwinStartup(typeof(closing_store.Startup))]
+
 namespace closing_store
 {
-    public partial class Startup
+    public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            // OWIN middleware configurations go here.
         }
     }
 }

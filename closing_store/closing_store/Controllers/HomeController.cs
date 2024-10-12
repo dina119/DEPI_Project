@@ -39,6 +39,72 @@ namespace closing_store.Controllers
         
             
         }
+
+
+        public ActionResult Signup()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Signup(customer customerr) {
+            if (db.customers.Any(x => x.UserName == customerr.UserName))
+            {
+                ViewBag.Notfication="this account is alresdy exist";
+                return View();
+            }
+            else
+            {
+                db.customers.Add(customerr);
+                db.SaveChanges();
+                Session["Ids"]=customerr.id.ToString();
+                Session["UserNames"]=customerr.UserName.ToString();
+               return RedirectToAction("Index","Home");
+            }
+
+
+        
+        }
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+         public ActionResult Login(customer customerr) {
+
+            var chechLogin=db.customers.Where(x=>x.UserName.Equals(customerr.UserName)&&x.password.Equals(customerr.password));
+            //var chechAdmin=db.customers.Where(x=>x.role_id.Equals(customerr.role_id==1));
+            //if(chechAdmin.Equals(1))
+            //{
+                 
+            //     Session["Ids"]=customerr.id.ToString();
+            //    Session["UserNames"]=customerr.UserName.ToString();
+            //    return RedirectToAction("Index","Home2");
+            //}
+            
+           if (chechLogin != null)
+            {
+                 Session["Ids"]=customerr.id.ToString();
+                Session["UserNames"]=customerr.UserName.ToString();
+                return RedirectToAction("Index","Home");
+            }
+
+           
+            else
+            {
+                ViewBag.Notification="Wrong username or password";
+            }
+            return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Index","Home");
+        }
        
         public ActionResult About()
         {

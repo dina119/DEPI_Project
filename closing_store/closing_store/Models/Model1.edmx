@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Closing_storeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Closing_storeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="id" />
@@ -22,6 +22,8 @@
           <Property Name="password" Type="varchar" MaxLength="50" />
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="role_id" Type="int" />
         </EntityType>
         <EntityType Name="customer_address">
           <Key>
@@ -85,6 +87,13 @@
           <Property Name="rate" Type="decimal" Precision="18" Scale="0" />
           <Property Name="description" Type="varchar(max)" />
           <Property Name="customer_id" Type="int" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sales_history">
           <Key>
@@ -175,6 +184,18 @@
             </Principal>
             <Dependent Role="customer_service">
               <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer__role_i__05D8E0BE">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="role_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -296,6 +317,7 @@
           <EntitySet Name="delivers_location" EntityType="Self.delivers_location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sales_history" EntityType="Self.sales_history" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
@@ -313,6 +335,10 @@
           <AssociationSet Name="FK__customer___staff__38996AB5" Association="Self.FK__customer___staff__38996AB5">
             <End Role="staff" EntitySet="staff" />
             <End Role="customer_service" EntitySet="customer_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer__role_i__05D8E0BE" Association="Self.FK__customer__role_i__05D8E0BE">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="customer" EntitySet="customer" />
           </AssociationSet>
           <AssociationSet Name="FK__delivers___deliv__5165187F" Association="Self.FK__delivers___deliv__5165187F">
             <End Role="delivers" EntitySet="delivers" />
@@ -351,8 +377,7 @@
             <End Role="visa" EntitySet="visa" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Closing_storeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -378,6 +403,9 @@
           <NavigationProperty Name="reviews" Relationship="Self.FK__review__customer__4316F928" FromRole="customer" ToRole="review" />
           <NavigationProperty Name="transactions" Relationship="Self.FK__transacti__custo__5629CD9C" FromRole="customer" ToRole="transactions" />
           <NavigationProperty Name="visas" Relationship="Self.FK__visa__customer_i__3D5E1FD2" FromRole="customer" ToRole="visa" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="role" Relationship="Closing_storeModel.FK__customer__role_i__05D8E0BE" FromRole="customer" ToRole="role" />
         </EntityType>
         <EntityType Name="customer_address">
           <Key>
@@ -725,7 +753,32 @@
             <End Role="transactions" EntitySet="transactions" />
             <End Role="transactions_items" EntitySet="transactions_items" />
           </AssociationSet>
+          <EntitySet Name="roles" EntityType="Closing_storeModel.role" />
+          <AssociationSet Name="FK__customer__role_i__05D8E0BE" Association="Closing_storeModel.FK__customer__role_i__05D8E0BE">
+            <End Role="role" EntitySet="roles" />
+            <End Role="customer" EntitySet="customers" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="customers" Relationship="Closing_storeModel.FK__customer__role_i__05D8E0BE" FromRole="role" ToRole="customer" />
+        </EntityType>
+        <Association Name="FK__customer__role_i__05D8E0BE">
+          <End Type="Closing_storeModel.role" Role="role" Multiplicity="0..1" />
+          <End Type="Closing_storeModel.customer" Role="customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -743,6 +796,8 @@
           <EntitySetMapping Name="customers">
             <EntityTypeMapping TypeName="Closing_storeModel.customer">
               <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
@@ -881,6 +936,14 @@
                 <ScalarProperty Name="Exp_date_year" ColumnName="Exp_date_year" />
                 <ScalarProperty Name="cvv" ColumnName="cvv" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="Closing_storeModel.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

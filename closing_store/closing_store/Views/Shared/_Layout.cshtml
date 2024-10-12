@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="~/images/icons/favicon.png" />
+    <link rel="icon" type="image/png" href="~/Content/images/icons/favicon.png" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -52,7 +52,7 @@
 
                     <!-- Logo desktop -->
                     <a href="#" class="logo">
-                        <img src="~/images/icons/logo-01.png" alt="IMG-LOGO">
+                        <img src="~/Content/images/icons/logo-01.png" alt="IMG-LOGO">
                     </a>
 
                     <!-- Menu desktop -->
@@ -75,9 +75,17 @@
                             <li>
                                 @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
                             </li>
-                            <li>
-                                @Html.Partial("_LoginPartial")
-                            </li>
+                            @if (Session["UserNames"] != null)
+                            {
+                                <li>@Html.ActionLink("LogOut", "LogOut", "Home")</li>
+                                <li><p style="color:black">Hello @Session["UserNames"]</p></li>
+
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("SignUp", "SignUp", "Home")</li>
+                                <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                            }
                         </ul>
 
                     </div>
@@ -104,7 +112,7 @@
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="index.html"><img src="~/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+                <a href="index.html"><img src="~/Content/images/icons/logo-01.png" alt="IMG-LOGO"></a>
             </div>
 
             <!-- Icon header -->
@@ -169,7 +177,7 @@
         <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
             <div class="container-search-header">
                 <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                    <img src="~/images/icons/icon-close2.png" alt="CLOSE">
+                    <img src="~/Content/images/icons/icon-close2.png" alt="CLOSE">
                 </button>
 
                 <form class="wrap-search-header flex-w p-l-15">
@@ -304,19 +312,19 @@
                         </a>
 
                         <a href="#" class="m-all-1">
-                            <img src="~/images/icons/icon-pay-02.png" alt="ICON-PAY">
+                            <img src="~/Content/images/icons/icon-pay-02.png" alt="ICON-PAY">
                         </a>
 
                         <a href="#" class="m-all-1">
-                            <img src="~/images/icons/icon-pay-03.png" alt="ICON-PAY">
+                            <img src="~/Content/images/icons/icon-pay-03.png" alt="ICON-PAY">
                         </a>
 
                         <a href="#" class="m-all-1">
-                            <img src="~/images/icons/icon-pay-04.png" alt="ICON-PAY">
+                            <img src="~/Content/images/icons/icon-pay-04.png" alt="ICON-PAY">
                         </a>
 
                         <a href="#" class="m-all-1">
-                            <img src="~/images/icons/icon-pay-05.png" alt="ICON-PAY">
+                            <img src="~/Content/images/icons/icon-pay-05.png" alt="ICON-PAY">
                         </a>
                     </div>
 
