@@ -12,33 +12,45 @@ namespace closing_store.Controllers
     public class HomeController : Controller
     {
        Closing_storeEntities1 db =new Closing_storeEntities1();
+
+        List<Cart>li=new List<Cart>();
          
         public ActionResult Index(string search)
         {
            List<product> list=db.products.Where(x=>x.name==search||search==null).ToList();
+            if (Session["cart"] != null)
+            {
+                int x=0;
+                 List<Cart> li3 = Session["cart"]as List<Cart>;
+                foreach(var item in li3)
+                {
+                     x+=item.product_total;
+                }
+               Session["Total"]=x;
+            }
            
             return View(list);
             
         }
       
 
-         public ActionResult details(int? id)
-        {
+        // public ActionResult details(int? id)
+        //{
            
             
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            product product = db.products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    product product = db.products.Find(id);
+        //    if (product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(product);
         
             
-        }
+        //}
 
 
         public ActionResult Signup()
@@ -109,6 +121,68 @@ namespace closing_store.Controllers
         {
             Session.Clear();
             return RedirectToAction("Index","Home");
+        }
+
+        public ActionResult details(int? id)
+        {
+
+            var query = db.products.Where(x => x.id == id).SingleOrDefault();
+            return View(query);
+        }
+
+
+        [HttpPost]
+         public ActionResult details(int id,int quantity)
+        {
+
+              product p=db.products.Where(x=>x.id==id).SingleOrDefault();
+            Cart c=new Cart();
+            c.product_id=id;
+            c.product_name=p.name;
+            c.product_img=p.image;
+            c.product_price=Convert.ToInt32(p.price);
+            c.quantity=Convert.ToInt32(quantity);
+            c.product_total=c.product_price*c.quantity;
+            if (Session["cart"] == null)
+            {
+                li.Add(c);
+                Session["cart"]=li;
+
+            }
+            else
+            {
+                
+                List<Cart> li2 = Session["cart"]as List<Cart>;
+               
+                var flag=0;
+               
+                foreach(var item in li2)
+                {
+                    
+                    if (item.product_id == c.product_id)
+                    {
+                        item.quantity+=c.quantity;
+                        item.product_total+=c.product_total;
+                        flag=1;
+                    }
+                   
+
+                }
+                 
+                if (flag == 0)
+                {
+                    li2.Add(c);
+                    
+                }
+                Session["cart"]=li2;
+               
+            }
+            return RedirectToAction("Index","Home");
+       }
+
+        public ActionResult AddToCart()
+        {
+            return View();
         }
        
         public ActionResult About()
