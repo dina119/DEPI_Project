@@ -143,6 +143,7 @@
     <NavigationProperty Name="deliver" Relationship="Self.FK__transacti__deliv__5441852A" FromRole="transactions" ToRole="delivers" />
     <NavigationProperty Name="sales_history" Relationship="Self.FK__transacti__sales__5535A963" FromRole="transactions" ToRole="sales_history" />
     <NavigationProperty Name="transactions_items" Relationship="Self.FK__transacti__trans__59063A47" FromRole="transactions" ToRole="transactions_items" />
+    <NavigationProperty Name="orders" Relationship="Closing_storeModel.FK__orders__transact__160F4887" FromRole="transaction" ToRole="order" />
   </EntityType>
   <EntityType Name="transactions_items">
     <Key>
@@ -377,6 +378,11 @@
       <End Role="role" EntitySet="roles" />
       <End Role="customer" EntitySet="customers" />
     </AssociationSet>
+    <EntitySet Name="orders" EntityType="Closing_storeModel.order" />
+    <AssociationSet Name="FK__orders__transact__160F4887" Association="Closing_storeModel.FK__orders__transact__160F4887">
+      <End Role="transaction" EntitySet="transactions" />
+      <End Role="order" EntitySet="orders" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="role">
     <Key>
@@ -395,6 +401,32 @@
       </Principal>
       <Dependent Role="customer">
         <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pro_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="qty" Type="Int32" />
+    <Property Name="order_date" Type="DateTime" Precision="0" />
+    <Property Name="transaction_id" Type="Int32" />
+    <NavigationProperty Name="transaction" Relationship="Closing_storeModel.FK__orders__transact__160F4887" FromRole="order" ToRole="transaction" />
+    <Property Name="pro_id" Type="Int32" />
+    <Property Name="pro_price" Type="Int32" />
+    <Property Name="order_total" Type="Int32" />
+  </EntityType>
+  <Association Name="FK__orders__transact__160F4887">
+    <End Type="Closing_storeModel.transaction" Role="transaction" Multiplicity="0..1" />
+    <End Type="Closing_storeModel.order" Role="order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="transaction">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="transaction_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

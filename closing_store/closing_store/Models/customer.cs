@@ -11,9 +11,7 @@ namespace closing_store.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,22 +24,12 @@ namespace closing_store.Models
         }
     
         public int id { get; set; }
-        [Required(ErrorMessage ="this field is required")]
         public string name { get; set; }
         public string gender { get; set; }
-      [Required(ErrorMessage ="this field is required")]
-        [DataType(DataType.Password)]
         public string password { get; set; }
-         [Compare("password",ErrorMessage ="Confirm password not match , Try again!")]
-         [Required(ErrorMessage ="this field is required")]
-        [NotMapped]
-        public string Repassword { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
-        [Required(ErrorMessage ="this field is required")]
         public string UserName { get; set; }
-
-        [Display(Name ="Admin code")]
         public Nullable<int> role_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace closing_store.Controllers
        Closing_storeEntities1 db =new Closing_storeEntities1();
 
         List<Cart>li=new List<Cart>();
+       
          
         public ActionResult Index(string search)
         {
@@ -94,8 +96,10 @@ namespace closing_store.Controllers
           if (chechLogin != null)
             {
                  Session["Ids"]=customerr.id.ToString();
+                 Session["Id"]=chechLogin.id;
                 Session["UserNames"]=customerr.UserName.ToString();
                  Session["Passwords"]=customerr.password.ToString();
+               
                 if (Session["UserNames"].Equals("ali"))
                 {
                     return RedirectToAction("Index", "Home2");
@@ -177,14 +181,47 @@ namespace closing_store.Controllers
                 Session["cart"]=li2;
                
             }
+             
             return RedirectToAction("Index","Home");
        }
 
         public ActionResult AddToCart()
         {
+           
             return View();
         }
+
+        public ActionResult CheckOut()
+        {
+         List<Cart> li2 = Session["cart"]as List<Cart>;
+            transaction t = new transaction();
+            t.customer_id =Convert.ToInt32(Session["Id"]);
+            t.date=System.DateTime.Now;
+            t.total_price = (int)Session["Total"];
+            db.transactions.Add(t);
+            db.SaveChanges();
+            foreach(var item in li2)
+            {
+                order o = new order();
+                o.pro_id=item.product_id;
+                o.order_date=System.DateTime.Now;
+                o.pro_price=item.product_price;
+                o.qty=item.quantity;
+                o.order_total=item.product_total;
+                o.transaction_id=t.id;
+
+                db.orders.Add(o);
+                 db.SaveChanges();
+            }
+            //Session.Remove("cart");
+            //Session.Remove("Total");
+            Session["msg"]="order book successfully!";
+            return RedirectToAction("Index","Home");
+        }
        
+       
+       
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

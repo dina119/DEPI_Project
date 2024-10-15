@@ -62,6 +62,19 @@
           <Property Name="location" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="delivery_id" Type="int" />
         </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pro_name" Type="varchar" MaxLength="50" />
+          <Property Name="qty" Type="int" />
+          <Property Name="order_date" Type="date" />
+          <Property Name="transaction_id" Type="int" />
+          <Property Name="pro_id" Type="int" />
+          <Property Name="pro_price" Type="int" />
+          <Property Name="order_total" Type="int" />
+        </EntityType>
         <EntityType Name="product">
           <Key>
             <PropertyRef Name="id" />
@@ -211,6 +224,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__orders__transact__160F4887">
+          <End Role="transactions" Type="Self.transactions" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transactions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="transaction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__product__catgory__5CD6CB2B">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="product" Type="Self.product" Multiplicity="*" />
@@ -315,6 +340,7 @@
           <EntitySet Name="customer_service" EntityType="Self.customer_service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="delivers" EntityType="Self.delivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="delivers_location" EntityType="Self.delivers_location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
@@ -343,6 +369,10 @@
           <AssociationSet Name="FK__delivers___deliv__5165187F" Association="Self.FK__delivers___deliv__5165187F">
             <End Role="delivers" EntitySet="delivers" />
             <End Role="delivers_location" EntitySet="delivers_location" />
+          </AssociationSet>
+          <AssociationSet Name="FK__orders__transact__160F4887" Association="Self.FK__orders__transact__160F4887">
+            <End Role="transactions" EntitySet="transactions" />
+            <End Role="orders" EntitySet="orders" />
           </AssociationSet>
           <AssociationSet Name="FK__product__catgory__5CD6CB2B" Association="Self.FK__product__catgory__5CD6CB2B">
             <End Role="Category" EntitySet="Category" />
@@ -524,6 +554,7 @@
           <NavigationProperty Name="deliver" Relationship="Self.FK__transacti__deliv__5441852A" FromRole="transactions" ToRole="delivers" />
           <NavigationProperty Name="sales_history" Relationship="Self.FK__transacti__sales__5535A963" FromRole="transactions" ToRole="sales_history" />
           <NavigationProperty Name="transactions_items" Relationship="Self.FK__transacti__trans__59063A47" FromRole="transactions" ToRole="transactions_items" />
+          <NavigationProperty Name="orders" Relationship="Closing_storeModel.FK__orders__transact__160F4887" FromRole="transaction" ToRole="order" />
         </EntityType>
         <EntityType Name="transactions_items">
           <Key>
@@ -758,6 +789,11 @@
             <End Role="role" EntitySet="roles" />
             <End Role="customer" EntitySet="customers" />
           </AssociationSet>
+          <EntitySet Name="orders" EntityType="Closing_storeModel.order" />
+          <AssociationSet Name="FK__orders__transact__160F4887" Association="Closing_storeModel.FK__orders__transact__160F4887">
+            <End Role="transaction" EntitySet="transactions" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="role">
           <Key>
@@ -776,6 +812,32 @@
             </Principal>
             <Dependent Role="customer">
               <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pro_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="order_date" Type="DateTime" Precision="0" />
+          <Property Name="transaction_id" Type="Int32" />
+          <NavigationProperty Name="transaction" Relationship="Closing_storeModel.FK__orders__transact__160F4887" FromRole="order" ToRole="transaction" />
+          <Property Name="pro_id" Type="Int32" />
+          <Property Name="pro_price" Type="Int32" />
+          <Property Name="order_total" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__orders__transact__160F4887">
+          <End Type="Closing_storeModel.transaction" Role="transaction" Multiplicity="0..1" />
+          <End Type="Closing_storeModel.order" Role="order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transaction">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="transaction_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -944,6 +1006,20 @@
               <MappingFragment StoreEntitySet="roles">
                 <ScalarProperty Name="role_name" ColumnName="role_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="Closing_storeModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="order_total" ColumnName="order_total" />
+                <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+                <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="pro_name" ColumnName="pro_name" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

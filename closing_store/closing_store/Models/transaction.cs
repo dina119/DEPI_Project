@@ -18,6 +18,7 @@ namespace closing_store.Models
         public transaction()
         {
             this.transactions_items = new HashSet<transactions_items>();
+            this.orders = new HashSet<order>();
         }
     
         public int id { get; set; }
@@ -32,5 +33,7 @@ namespace closing_store.Models
         public virtual sales_history sales_history { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<transactions_items> transactions_items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<order> orders { get; set; }
     }
 }

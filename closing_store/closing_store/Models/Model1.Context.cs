@@ -41,5 +41,6 @@ namespace closing_store.Models
         public virtual DbSet<transactions_items> transactions_items { get; set; }
         public virtual DbSet<visa> visas { get; set; }
         public virtual DbSet<role> roles { get; set; }
+        public virtual DbSet<order> orders { get; set; }
     }
 }
