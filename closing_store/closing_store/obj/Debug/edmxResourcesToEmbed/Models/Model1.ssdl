@@ -19,6 +19,7 @@
     <Property Name="phone" Type="varchar" MaxLength="20" />
     <Property Name="UserName" Type="varchar" MaxLength="50" />
     <Property Name="role_id" Type="int" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="customer_address">
     <Key>
@@ -159,6 +160,31 @@
     <Property Name="cvv" Type="varchar" MaxLength="3" />
     <Property Name="customer_id" Type="int" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Closing_store.dbo.getallorders2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="getallorders2">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="customer" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="product_name" Type="varchar" MaxLength="50" />
+    <Property Name="pro_price" Type="int" />
+    <Property Name="qty" Type="int" />
+    <Property Name="order_total" Type="int" />
+    <Property Name="Total" Type="int" />
+    <Property Name="date" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Closing_store.dbo.ViewOrders' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ViewOrders">
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="total_price" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>-->
   <Association Name="FK__customer___custo__403A8C7D">
     <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
     <End Role="customer_address" Type="Self.customer_address" Multiplicity="*" />
@@ -345,6 +371,20 @@
     <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="transactions_items" EntityType="Self.transactions_items" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="visa" EntityType="Self.visa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="getallorders2" EntityType="Self.getallorders2" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [getallorders2].[id] AS [id], 
+    [getallorders2].[customer] AS [customer], 
+    [getallorders2].[phone] AS [phone], 
+    [getallorders2].[Address] AS [Address], 
+    [getallorders2].[product_name] AS [product_name], 
+    [getallorders2].[pro_price] AS [pro_price], 
+    [getallorders2].[qty] AS [qty], 
+    [getallorders2].[order_total] AS [order_total], 
+    [getallorders2].[Total] AS [Total], 
+    [getallorders2].[date] AS [date]
+    FROM [dbo].[getallorders2] AS [getallorders2]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK__customer___custo__403A8C7D" Association="Self.FK__customer___custo__403A8C7D">
       <End Role="customer" EntitySet="customer" />
       <End Role="customer_address" EntitySet="customer_address" />

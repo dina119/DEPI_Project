@@ -12,7 +12,7 @@ namespace closing_store.Controllers
 {
     public class productsController : Controller
     {
-        private Closing_storeEntities1 db = new Closing_storeEntities1();
+        private Closing_storeEntities db = new Closing_storeEntities();
 
         // GET: products
         public ActionResult Index()
@@ -120,6 +120,8 @@ namespace closing_store.Controllers
             }
             return View(product);
         }
+
+        
 
         // POST: products/Delete/5
         [HttpPost, ActionName("Delete")]

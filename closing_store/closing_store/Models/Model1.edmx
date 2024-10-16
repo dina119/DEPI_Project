@@ -24,6 +24,7 @@
           <Property Name="phone" Type="varchar" MaxLength="20" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
           <Property Name="role_id" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="customer_address">
           <Key>
@@ -164,6 +165,31 @@
           <Property Name="cvv" Type="varchar" MaxLength="3" />
           <Property Name="customer_id" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Closing_store.dbo.getallorders2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="getallorders2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="customer" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="product_name" Type="varchar" MaxLength="50" />
+          <Property Name="pro_price" Type="int" />
+          <Property Name="qty" Type="int" />
+          <Property Name="order_total" Type="int" />
+          <Property Name="Total" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Closing_store.dbo.ViewOrders' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ViewOrders">
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="total_price" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>-->
         <Association Name="FK__customer___custo__403A8C7D">
           <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
           <End Role="customer_address" Type="Self.customer_address" Multiplicity="*" />
@@ -350,6 +376,20 @@
           <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transactions_items" EntityType="Self.transactions_items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="visa" EntityType="Self.visa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="getallorders2" EntityType="Self.getallorders2" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [getallorders2].[id] AS [id], 
+    [getallorders2].[customer] AS [customer], 
+    [getallorders2].[phone] AS [phone], 
+    [getallorders2].[Address] AS [Address], 
+    [getallorders2].[product_name] AS [product_name], 
+    [getallorders2].[pro_price] AS [pro_price], 
+    [getallorders2].[qty] AS [qty], 
+    [getallorders2].[order_total] AS [order_total], 
+    [getallorders2].[Total] AS [Total], 
+    [getallorders2].[date] AS [date]
+    FROM [dbo].[getallorders2] AS [getallorders2]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__customer___custo__403A8C7D" Association="Self.FK__customer___custo__403A8C7D">
             <End Role="customer" EntitySet="customer" />
             <End Role="customer_address" EntitySet="customer_address" />
@@ -429,13 +469,14 @@
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="customer_address" Relationship="Self.FK__customer___custo__403A8C7D" FromRole="customer" ToRole="customer_address" />
+          <NavigationProperty Name="role" Relationship="Self.FK__customer__role_i__05D8E0BE" FromRole="customer" ToRole="roles" />
           <NavigationProperty Name="reviews" Relationship="Self.FK__review__customer__4316F928" FromRole="customer" ToRole="review" />
           <NavigationProperty Name="transactions" Relationship="Self.FK__transacti__custo__5629CD9C" FromRole="customer" ToRole="transactions" />
           <NavigationProperty Name="visas" Relationship="Self.FK__visa__customer_i__3D5E1FD2" FromRole="customer" ToRole="visa" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="role_id" Type="Int32" />
-          <NavigationProperty Name="role" Relationship="Closing_storeModel.FK__customer__role_i__05D8E0BE" FromRole="customer" ToRole="role" />
         </EntityType>
         <EntityType Name="customer_address">
           <Key>
@@ -480,6 +521,20 @@
           <Property Name="delivery_id" Type="Int32" />
           <NavigationProperty Name="deliver" Relationship="Self.FK__delivers___deliv__5165187F" FromRole="delivers_location" ToRole="delivers" />
         </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pro_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="order_date" Type="DateTime" Precision="0" />
+          <Property Name="transaction_id" Type="Int32" />
+          <Property Name="pro_id" Type="Int32" />
+          <Property Name="pro_price" Type="Int32" />
+          <Property Name="order_total" Type="Int32" />
+          <NavigationProperty Name="transaction" Relationship="Self.FK__orders__transact__160F4887" FromRole="orders" ToRole="transactions" />
+        </EntityType>
         <EntityType Name="product">
           <Key>
             <PropertyRef Name="id" />
@@ -509,6 +564,14 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="customer_id" Type="Int32" />
           <NavigationProperty Name="customer" Relationship="Self.FK__review__customer__4316F928" FromRole="review" ToRole="customer" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="customers" Relationship="Self.FK__customer__role_i__05D8E0BE" FromRole="roles" ToRole="customer" />
         </EntityType>
         <EntityType Name="sales_history">
           <Key>
@@ -552,9 +615,9 @@
           <Property Name="customer_id" Type="Int32" />
           <NavigationProperty Name="customer" Relationship="Self.FK__transacti__custo__5629CD9C" FromRole="transactions" ToRole="customer" />
           <NavigationProperty Name="deliver" Relationship="Self.FK__transacti__deliv__5441852A" FromRole="transactions" ToRole="delivers" />
+          <NavigationProperty Name="orders" Relationship="Self.FK__orders__transact__160F4887" FromRole="transactions" ToRole="orders" />
           <NavigationProperty Name="sales_history" Relationship="Self.FK__transacti__sales__5535A963" FromRole="transactions" ToRole="sales_history" />
           <NavigationProperty Name="transactions_items" Relationship="Self.FK__transacti__trans__59063A47" FromRole="transactions" ToRole="transactions_items" />
-          <NavigationProperty Name="orders" Relationship="Closing_storeModel.FK__orders__transact__160F4887" FromRole="transaction" ToRole="order" />
         </EntityType>
         <EntityType Name="transactions_items">
           <Key>
@@ -597,6 +660,18 @@
             </Principal>
             <Dependent Role="customer_address">
               <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__customer__role_i__05D8E0BE">
+          <End Role="roles" Type="Self.role" Multiplicity="0..1" />
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="role_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -684,6 +759,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__orders__transact__160F4887">
+          <End Role="transactions" Type="Self.transaction" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transactions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="transaction_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__product__supplie__47DBAE45">
           <End Role="supplier" Type="Self.supplier" Multiplicity="0..1" />
           <End Role="product" Type="Self.product" Multiplicity="*" />
@@ -720,7 +807,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Closing_storeEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Closing_storeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="customers" EntityType="Self.customer" />
           <EntitySet Name="customer_address" EntityType="Self.customer_address" />
@@ -728,8 +815,10 @@
           <EntitySet Name="customer_service" EntityType="Self.customer_service" />
           <EntitySet Name="delivers" EntityType="Self.deliver" />
           <EntitySet Name="delivers_location" EntityType="Self.delivers_location" />
+          <EntitySet Name="orders" EntityType="Self.order" />
           <EntitySet Name="products" EntityType="Self.product" />
           <EntitySet Name="reviews" EntityType="Self.review" />
+          <EntitySet Name="roles" EntityType="Self.role" />
           <EntitySet Name="sales_history" EntityType="Self.sales_history" />
           <EntitySet Name="staffs" EntityType="Self.staff" />
           <EntitySet Name="suppliers" EntityType="Self.supplier" />
@@ -743,6 +832,10 @@
           <AssociationSet Name="FK__customer___custo__403A8C7D" Association="Self.FK__customer___custo__403A8C7D">
             <End Role="customer" EntitySet="customers" />
             <End Role="customer_address" EntitySet="customer_address" />
+          </AssociationSet>
+          <AssociationSet Name="FK__customer__role_i__05D8E0BE" Association="Self.FK__customer__role_i__05D8E0BE">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="customer" EntitySet="customers" />
           </AssociationSet>
           <AssociationSet Name="FK__review__customer__4316F928" Association="Self.FK__review__customer__4316F928">
             <End Role="customer" EntitySet="customers" />
@@ -772,6 +865,10 @@
             <End Role="delivers" EntitySet="delivers" />
             <End Role="transactions" EntitySet="transactions" />
           </AssociationSet>
+          <AssociationSet Name="FK__orders__transact__160F4887" Association="Self.FK__orders__transact__160F4887">
+            <End Role="transactions" EntitySet="transactions" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
           <AssociationSet Name="FK__product__supplie__47DBAE45" Association="Self.FK__product__supplie__47DBAE45">
             <End Role="supplier" EntitySet="suppliers" />
             <End Role="product" EntitySet="products" />
@@ -784,69 +881,29 @@
             <End Role="transactions" EntitySet="transactions" />
             <End Role="transactions_items" EntitySet="transactions_items" />
           </AssociationSet>
-          <EntitySet Name="roles" EntityType="Closing_storeModel.role" />
-          <AssociationSet Name="FK__customer__role_i__05D8E0BE" Association="Closing_storeModel.FK__customer__role_i__05D8E0BE">
-            <End Role="role" EntitySet="roles" />
-            <End Role="customer" EntitySet="customers" />
-          </AssociationSet>
-          <EntitySet Name="orders" EntityType="Closing_storeModel.order" />
-          <AssociationSet Name="FK__orders__transact__160F4887" Association="Closing_storeModel.FK__orders__transact__160F4887">
-            <End Role="transaction" EntitySet="transactions" />
-            <End Role="order" EntitySet="orders" />
-          </AssociationSet>
+          <EntitySet Name="getallorders2" EntityType="Closing_storeModel.getallorders2" />
         </EntityContainer>
-        <EntityType Name="role">
+        <EntityType Name="getallorders2">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="customers" Relationship="Closing_storeModel.FK__customer__role_i__05D8E0BE" FromRole="role" ToRole="customer" />
-        </EntityType>
-        <Association Name="FK__customer__role_i__05D8E0BE">
-          <End Type="Closing_storeModel.role" Role="role" Multiplicity="0..1" />
-          <End Type="Closing_storeModel.customer" Role="customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="role">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="customer">
-              <PropertyRef Name="role_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="order">
-          <Key>
-            <PropertyRef Name="order_id" />
-          </Key>
-          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="pro_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="qty" Type="Int32" />
-          <Property Name="order_date" Type="DateTime" Precision="0" />
-          <Property Name="transaction_id" Type="Int32" />
-          <NavigationProperty Name="transaction" Relationship="Closing_storeModel.FK__orders__transact__160F4887" FromRole="order" ToRole="transaction" />
-          <Property Name="pro_id" Type="Int32" />
+          <Property Name="customer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="pro_price" Type="Int32" />
+          <Property Name="qty" Type="Int32" />
           <Property Name="order_total" Type="Int32" />
+          <Property Name="Total" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
         </EntityType>
-        <Association Name="FK__orders__transact__160F4887">
-          <End Type="Closing_storeModel.transaction" Role="transaction" Multiplicity="0..1" />
-          <End Type="Closing_storeModel.order" Role="order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="transaction">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="order">
-              <PropertyRef Name="transaction_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Closing_storeModelStoreContainer" CdmEntityContainer="Closing_storeEntities1">
+        <EntityContainerMapping StorageEntityContainer="Closing_storeModelStoreContainer" CdmEntityContainer="Closing_storeEntities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="Closing_storeModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -858,14 +915,15 @@
           <EntitySetMapping Name="customers">
             <EntityTypeMapping TypeName="Closing_storeModel.customer">
               <MappingFragment StoreEntitySet="customer">
-                <ScalarProperty Name="role_id" ColumnName="role_id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -911,6 +969,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="Closing_storeModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="pro_name" ColumnName="pro_name" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+                <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+                <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+                <ScalarProperty Name="order_total" ColumnName="order_total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="Closing_storeModel.product">
               <MappingFragment StoreEntitySet="product">
@@ -936,6 +1008,14 @@
                 <ScalarProperty Name="rate" ColumnName="rate" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="Closing_storeModel.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1001,25 +1081,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="roles">
-            <EntityTypeMapping TypeName="Closing_storeModel.role">
-              <MappingFragment StoreEntitySet="roles">
-                <ScalarProperty Name="role_name" ColumnName="role_name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="orders">
-            <EntityTypeMapping TypeName="Closing_storeModel.order">
-              <MappingFragment StoreEntitySet="orders">
+          <EntitySetMapping Name="getallorders2">
+            <EntityTypeMapping TypeName="Closing_storeModel.getallorders2">
+              <MappingFragment StoreEntitySet="getallorders2">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="order_total" ColumnName="order_total" />
-                <ScalarProperty Name="pro_price" ColumnName="pro_price" />
-                <ScalarProperty Name="pro_id" ColumnName="pro_id" />
-                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
-                <ScalarProperty Name="order_date" ColumnName="order_date" />
                 <ScalarProperty Name="qty" ColumnName="qty" />
-                <ScalarProperty Name="pro_name" ColumnName="pro_name" />
-                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="customer" ColumnName="customer" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

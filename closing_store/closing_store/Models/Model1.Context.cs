@@ -13,10 +13,10 @@ namespace closing_store.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Closing_storeEntities1 : DbContext
+    public partial class Closing_storeEntities : DbContext
     {
-        public Closing_storeEntities1()
-            : base("name=Closing_storeEntities1")
+        public Closing_storeEntities()
+            : base("name=Closing_storeEntities")
         {
         }
     
@@ -32,15 +32,16 @@ namespace closing_store.Models
         public virtual DbSet<customer_service> customer_service { get; set; }
         public virtual DbSet<deliver> delivers { get; set; }
         public virtual DbSet<delivers_location> delivers_location { get; set; }
+        public virtual DbSet<order> orders { get; set; }
         public virtual DbSet<product> products { get; set; }
         public virtual DbSet<review> reviews { get; set; }
+        public virtual DbSet<role> roles { get; set; }
         public virtual DbSet<sales_history> sales_history { get; set; }
         public virtual DbSet<staff> staffs { get; set; }
         public virtual DbSet<supplier> suppliers { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<transactions_items> transactions_items { get; set; }
         public virtual DbSet<visa> visas { get; set; }
-        public virtual DbSet<role> roles { get; set; }
-        public virtual DbSet<order> orders { get; set; }
+        public virtual DbSet<getallorders2> getallorders2 { get; set; }
     }
 }

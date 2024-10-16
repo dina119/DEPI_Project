@@ -12,7 +12,7 @@ namespace closing_store.Controllers
 {
     public class HomeController : Controller
     {
-       Closing_storeEntities1 db =new Closing_storeEntities1();
+       Closing_storeEntities db =new Closing_storeEntities();
 
         List<Cart>li=new List<Cart>();
        
@@ -34,26 +34,8 @@ namespace closing_store.Controllers
             return View(list);
             
         }
-      
 
-        // public ActionResult details(int? id)
-        //{
-           
-            
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    product product = db.products.Find(id);
-        //    if (product == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(product);
-        
-            
-        //}
-
+    
 
         public ActionResult Signup()
         {
@@ -102,7 +84,7 @@ namespace closing_store.Controllers
                
                 if (Session["UserNames"].Equals("ali"))
                 {
-                    return RedirectToAction("Index", "Home2");
+                    return RedirectToAction("Index", "products");
                 }
 
 
@@ -213,10 +195,16 @@ namespace closing_store.Controllers
                 db.orders.Add(o);
                  db.SaveChanges();
             }
-            //Session.Remove("cart");
-            //Session.Remove("Total");
+            Session.Remove("cart");
+            Session.Remove("Total");
             Session["msg"]="order book successfully!";
             return RedirectToAction("Index","Home");
+        }
+
+        public ActionResult GetAllOrders()
+        {
+            var query=db.getallorders2.ToList();
+            return View(query);
         }
        
        

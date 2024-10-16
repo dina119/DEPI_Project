@@ -4,24 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="35ca5e04aa9648788f33cb5f29ecd523" Name="Diagram1">
-        <EntityTypeShape EntityType="Closing_storeModel.Category" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.customer" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.customer_address" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.customer_buy_product" Width="1.5" PointX="10.25" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.customer_service" Width="1.5" PointX="10" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.deliver" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.delivers_location" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.product" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.review" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.sales_history" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.staff" Width="1.5" PointX="7.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.supplier" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.transaction" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.transactions_items" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Closing_storeModel.visa" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+      <Diagram DiagramId="9522a9ece2f24a36ac693c3f4ca8a554" Name="Diagram1">
+        <EntityTypeShape EntityType="Closing_storeModel.Category" Width="1.5" PointX="5.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.customer" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.customer_address" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.customer_buy_product" Width="1.5" PointX="10.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.customer_service" Width="1.5" PointX="13" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.deliver" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.delivers_location" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.order" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.product" Width="1.5" PointX="8" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.review" Width="1.5" PointX="6" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.role" Width="1.5" PointX="1.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.sales_history" Width="1.5" PointX="3.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.staff" Width="1.5" PointX="10.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.supplier" Width="1.5" PointX="5.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.transaction" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.transactions_items" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Closing_storeModel.visa" Width="1.5" PointX="6" PointY="21.375" IsExpanded="true" />
         <AssociationConnector Association="Closing_storeModel.FK__product__catgory__5CD6CB2B" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__customer___custo__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="Closing_storeModel.FK__customer__role_i__05D8E0BE" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__review__customer__4316F928" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__transacti__custo__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__visa__customer_i__3D5E1FD2" ManuallyRouted="false" />
@@ -29,13 +32,11 @@
         <AssociationConnector Association="Closing_storeModel.FK__customer___staff__38996AB5" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__delivers___deliv__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__transacti__deliv__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="Closing_storeModel.FK__orders__transact__160F4887" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__product__supplie__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__transacti__sales__5535A963" ManuallyRouted="false" />
         <AssociationConnector Association="Closing_storeModel.FK__transacti__trans__59063A47" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Closing_storeModel.role" Width="1.5" PointX="0.75" PointY="2.75" />
-        <AssociationConnector Association="Closing_storeModel.FK__customer__role_i__05D8E0BE" />
-        <EntityTypeShape EntityType="Closing_storeModel.order" Width="1.5" PointX="5.25" PointY="12.25" />
-        <AssociationConnector Association="Closing_storeModel.FK__orders__transact__160F4887" />
+        <EntityTypeShape EntityType="Closing_storeModel.getallorders2" Width="1.5" PointX="0.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Closing_storeModelStoreContainer" CdmEntityContainer="Closing_storeEntities1">
+  <EntityContainerMapping StorageEntityContainer="Closing_storeModelStoreContainer" CdmEntityContainer="Closing_storeEntities">
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="Closing_storeModel.Category">
         <MappingFragment StoreEntitySet="Category">
@@ -12,14 +12,15 @@
     <EntitySetMapping Name="customers">
       <EntityTypeMapping TypeName="Closing_storeModel.customer">
         <MappingFragment StoreEntitySet="customer">
-          <ScalarProperty Name="role_id" ColumnName="role_id" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="gender" ColumnName="gender" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -65,6 +66,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="Closing_storeModel.order">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="pro_name" ColumnName="pro_name" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="order_date" ColumnName="order_date" />
+          <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+          <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+          <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+          <ScalarProperty Name="order_total" ColumnName="order_total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="products">
       <EntityTypeMapping TypeName="Closing_storeModel.product">
         <MappingFragment StoreEntitySet="product">
@@ -90,6 +105,14 @@
           <ScalarProperty Name="rate" ColumnName="rate" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="Closing_storeModel.role">
+        <MappingFragment StoreEntitySet="roles">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="role_name" ColumnName="role_name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -155,25 +178,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="roles">
-      <EntityTypeMapping TypeName="Closing_storeModel.role">
-        <MappingFragment StoreEntitySet="roles">
-          <ScalarProperty Name="role_name" ColumnName="role_name" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="orders">
-      <EntityTypeMapping TypeName="Closing_storeModel.order">
-        <MappingFragment StoreEntitySet="orders">
+    <EntitySetMapping Name="getallorders2">
+      <EntityTypeMapping TypeName="Closing_storeModel.getallorders2">
+        <MappingFragment StoreEntitySet="getallorders2">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
           <ScalarProperty Name="order_total" ColumnName="order_total" />
-          <ScalarProperty Name="pro_price" ColumnName="pro_price" />
-          <ScalarProperty Name="pro_id" ColumnName="pro_id" />
-          <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
-          <ScalarProperty Name="order_date" ColumnName="order_date" />
           <ScalarProperty Name="qty" ColumnName="qty" />
-          <ScalarProperty Name="pro_name" ColumnName="pro_name" />
-          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="customer" ColumnName="customer" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
